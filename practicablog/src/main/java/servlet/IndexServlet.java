@@ -36,7 +36,7 @@ public class IndexServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query q = new Query("Entradas").addSort("titulo", Query.SortDirection.ASCENDING);
+        Query q = new Query("Post").addSort("titulo", Query.SortDirection.ASCENDING);
         
         List<Entity> entries = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
         request.setAttribute("posts", entries);

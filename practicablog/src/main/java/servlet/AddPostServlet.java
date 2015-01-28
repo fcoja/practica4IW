@@ -5,8 +5,11 @@
  */
 package servlet;
 
+import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +32,37 @@ public class AddPostServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
+        String type = request.getParameter("type");
+        switch (type) {
+            case "new":
+                getServletContext().getRequestDispatcher("/addpost.jsp").forward(request, response);
+                break;
+            case "commit":
+                String user = request.getParameter("user"),
+                 title = request.getParameter("title"),
+                 desc = request.getParameter("description"),
+                 city = request.getParameter("city"),
+                 thumbnail = request.getParameter("thumbnail");
+                String[] images = request.getParameterValues("image");
+                StringBuilder image = new StringBuilder(thumbnail != null
+                        ? thumbnail.substring(0, thumbnail.length() - 4) + "_t.jpg" : "#");
+                if (images != null) {
+                    for (String i : images) {
+                        image.append(";").append(i);
+                    }
+                }
+                
+                Entity post = new Entity("Post");
+                post.setProperty("autor",URLEncoder.encode(user, "UTF-8"));
+                post.setProperty("ciudad",URLEncoder.encode(city, "UTF-8"));
+                post.setProperty("fecha",new Date());
+                post.setProperty("imagen",image.toString());
+                post.setProperty("texto",URLEncoder.encode(desc, "UTF-8"));
+                post.setProperty("titulo",URLEncoder.encode(title, "UTF-8"));
+                response.sendRedirect(getServletContext().getContextPath());
+                break;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
