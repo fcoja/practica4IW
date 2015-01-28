@@ -43,10 +43,10 @@ public class AddCommentServlet extends HttpServlet {
         String user = request.getParameter("username"), comment = request.getParameter("commentText"),
                 id = request.getParameter("id");
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        Key k = KeyFactory.createKey("post", id);
+        Key k = KeyFactory.createKey("Post", id);
         try {
             Entity e = ds.get(k);
-            Entity c = new Entity("post");
+            Entity c = new Entity("Post");
             c.setProperty("autor", URLEncoder.encode(user, "UTF-8"));
             c.setProperty("texto", URLEncoder.encode(comment, "UTF-8"));
             c.setProperty("fecha", URLEncoder.encode(DateFormat.getInstance().format(new Date()), "UTF-8"));

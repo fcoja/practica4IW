@@ -37,10 +37,10 @@ public class SeePostServlet extends HttpServlet {
             throws ServletException, IOException {
         String id = request.getParameter("id");
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        Key k = KeyFactory.createKey("post", id);
+        Key k = KeyFactory.createKey("Post", id);
         try {
             Entity e = ds.get(k);
-            request.setAttribute("post", e);
+            request.setAttribute("Post", e);
             getServletContext().getRequestDispatcher("/seepost.jsp").forward(request, response);
         } catch (Exception e) {
             throw new ServletException(e);
