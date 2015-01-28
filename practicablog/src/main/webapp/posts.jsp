@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Aplicaci&oacute;n de blogs</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
     </head>
     <body>
         <%

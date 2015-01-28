@@ -1,0 +1,63 @@
+body { 
+	font: 75% arial, sans-serif;
+	line-height: 1.88889;
+	background-color: #4D4D4D;
+	margin: 0; 
+	padding: 0;
+	background-image: url("fondo.jpg");
+	background-attachment: fixed;
+}
+
+p { 
+	margin-top: 0;
+	padding-left: 10px;
+	padding-top: 10px;
+	text-align: justify;
+}
+
+h3 { 
+	font: italic normal 1.4em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 0;
+	margin-left: 7px; 
+	color: azure;
+	text-align: center
+}
+
+a:link { 
+	font-weight: bold; 
+	text-decoration: none; 
+	color: black;
+	padding-left: 20px
+}
+
+a:visited, a:hover, a:focus, a:active{ 
+	font-weight: bold; 
+	text-decoration: none; 
+	color: cadetblue;
+}
+
+div{
+	text-align: center;
+}
+table, div{
+	margin: auto;
+	width: 50%;
+	min-width: 548px;
+	background-color: whitesmoke;
+	border: 1px solid #000;
+	opacity: 0.85
+}
+
+td {
+	font: arial, sans-serif;
+	font-style: italic
+}
+
+form {
+	margin: 0 auto
+}
+
+textarea {
+	max-width: -moz-available;
+}
