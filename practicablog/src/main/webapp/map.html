@@ -65,7 +65,7 @@
     </head>
     <body>
         <div id="panel">
-            <input id="address" type="text" name="city" value="Sydney, NSW">
+            <input id="address" type="text" name="city" value="Sydney, NSW" onkeypress="if (event.keyCode === 13) codeAddress()">
             <input type="button" value="Geocode" onclick="codeAddress()">
         </div>
         <div id="map-canvas"></div>

@@ -44,7 +44,6 @@ public class SeePostServlet extends HttpServlet {
         Key k = KeyFactory.createKey("Post", Long.parseLong(id));  
         try {
             Entity e = ds.get(k);
-            System.out.println(e.getProperty("autor").toString());
             request.setAttribute("Post", e);
             getServletContext().getRequestDispatcher("/seepost.jsp").forward(request, response);
         } catch (Exception e) {

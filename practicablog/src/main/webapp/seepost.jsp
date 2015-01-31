@@ -4,6 +4,7 @@
     Author     : Alberto
 --%>
 
+<%@page import="com.google.appengine.api.datastore.EmbeddedEntity"%>
 <%@page import="com.google.appengine.api.datastore.Entity"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.text.DateFormat"%>
@@ -12,12 +13,12 @@
 <!DOCTYPE html>
 <html>
     <%
-        Entity e = (Entity) request.getAttribute("post");
-        List<Entity> comments = (List<Entity>) e.getProperty("comments");
+        Entity e = (Entity) request.getAttribute("Post");
+        List<EmbeddedEntity> comments = (List<EmbeddedEntity>) e.getProperty("comments");
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><%= URLDecoder.decode(e.getProperty("titulo").toString(), "UTF-8") %></title>
+        <title><%= URLDecoder.decode(e.getProperty("titulo").toString(), "UTF-8")%></title>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
@@ -36,6 +37,10 @@
             function addComment() {
                 var user = document.getElementById('userId').value;
                 var comment = document.getElementById('commentId').value;
+                if (user === "" || comment === ""){
+                    alert('Campos no rellenos');
+                    return;
+                }
                 document.getElementById('userId').value = '';
                 document.getElementById('commentId').value = '';
                 if (request)
@@ -60,17 +65,17 @@
     </head>
     <body>
         <div>
-            <h1><%= URLDecoder.decode(e.getProperty("ciudad").toString(), "UTF-8") %>
-                - <%= URLDecoder.decode(e.getProperty("titulo").toString(), "UTF-8") %></h1>
-                <img src="<%= e.getProperty("imagen") != null ? e.getProperty("imagen").toString().split(";")[0] : "#"%>"/>
+            <h1><%= URLDecoder.decode(e.getProperty("ciudad").toString(), "UTF-8")%>
+                - <%= URLDecoder.decode(e.getProperty("titulo").toString(), "UTF-8")%></h1>
+            <img src="<%= e.getProperty("imagen") != null ? e.getProperty("imagen").toString().split(";")[0] : "#"%>"/>
         </div>
-            <input id="city" type="hidden" value="<%= URLDecoder.decode(e.getProperty("ciudad").toString(), "UTF-8") %>"/>
+        <input id="city" type="hidden" value="<%= URLDecoder.decode(e.getProperty("ciudad").toString(), "UTF-8")%>"/>
         <div>
-            Created by: <%= URLDecoder.decode(e.getProperty("autor").toString(), "UTF-8") %>
-            at <%= e.getProperty("fecha").toString() %>
+            Created by: <%= URLDecoder.decode(e.getProperty("autor").toString(), "UTF-8")%>
+            at <%= e.getProperty("fecha").toString()%>
         </div>
         <div>
-            <p><%= URLDecoder.decode(e.getProperty("texto").toString(), "UTF-8") %></p>
+            <p><%= URLDecoder.decode(e.getProperty("texto").toString(), "UTF-8")%></p>
         </div>
         <div>
             <%
@@ -90,22 +95,23 @@
         <iframe id="map" height="400px" width="100%" frameborder="0" scrolling="no"
                 src="${pageContext.request.contextPath}/map.html"></iframe>
         <br/><h3>Comentarios:</h3><br/>
-            <div id="comments">
-                <%
-                    for (Entity c : comments) {
-                %>
-                <div>
-                    <b><%= URLDecoder.decode(c.getProperty("autor").toString(), "UTF-8") %>:</b><br/>
-                    <small><%= c.getProperty("fecha").toString() %></small><br/>
-                    <%= URLDecoder.decode(c.getProperty("texto").toString(), "UTF-8") %>
-                </div>
-                <%
-                    }
-                %>
-            </div><br/>
-            <div>Usuario:<br/><input id="userId" type="text" name="user"/></div>
-            <div>Comentario:<br/><textarea id="commentId" cols="75" rows="3" name="comment"></textarea></div>
-            <input type="submit" value="A&ntilde;adir" onclick="addComment()"/>
-            <input id="postId" type="hidden" value="<%= e.getProperty("id").toString() %>"/>
+        <div id="comments">
+            <%
+                if (comments != null)
+                    for (EmbeddedEntity c : comments) {
+            %>
+            <div>
+                <b><%= URLDecoder.decode(c.getProperty("autor").toString(), "UTF-8")%>:</b><br/>
+                <small><%= c.getProperty("fecha").toString()%></small><br/>
+                <%= URLDecoder.decode(c.getProperty("texto").toString(), "UTF-8")%>
+            </div>
+            <%
+                }
+            %>
+        </div><br/>
+        <div>Usuario:<br/><input id="userId" type="text" name="user"/></div>
+        <div>Comentario:<br/><textarea id="commentId" cols="75" rows="3" name="comment"></textarea></div>
+        <input type="submit" value="A&ntilde;adir" onclick="addComment()"/>
+        <input id="postId" type="hidden" value="<%= e.getKey().getId()%>"/>
     </body>
 </html>
