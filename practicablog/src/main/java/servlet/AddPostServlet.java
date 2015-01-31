@@ -60,7 +60,7 @@ public class AddPostServlet extends HttpServlet {
                 post.setProperty("imagen",image.toString());
                 post.setProperty("texto",URLEncoder.encode(desc, "UTF-8"));
                 post.setProperty("titulo",URLEncoder.encode(title, "UTF-8"));
-                response.sendRedirect(getServletContext().getContextPath());
+                response.sendRedirect(getServletContext().getContextPath() + "/index");
                 break;
         }
     }

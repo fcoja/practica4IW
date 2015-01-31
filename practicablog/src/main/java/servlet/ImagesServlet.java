@@ -36,7 +36,6 @@ public class ImagesServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             String city = request.getReader().readLine();
-            System.out.println(city);
             Flickr api = new Flickr("d5da76b17d9aecf7269aad552ffffdc1", "483b74baa31f129c", new REST());
             SearchParameters parameters = new SearchParameters();
             parameters.setTags(new String[]{city});
