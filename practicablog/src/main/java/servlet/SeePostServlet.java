@@ -10,6 +10,10 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -37,9 +41,10 @@ public class SeePostServlet extends HttpServlet {
             throws ServletException, IOException {
         String id = request.getParameter("id");
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        Key k = KeyFactory.createKey("Post", id);
+        Key k = KeyFactory.createKey("Post", Long.parseLong(id));  
         try {
             Entity e = ds.get(k);
+            System.out.println(e.getProperty("autor").toString());
             request.setAttribute("Post", e);
             getServletContext().getRequestDispatcher("/seepost.jsp").forward(request, response);
         } catch (Exception e) {

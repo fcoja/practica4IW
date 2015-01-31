@@ -5,6 +5,8 @@
  */
 package servlet;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -60,6 +62,8 @@ public class AddPostServlet extends HttpServlet {
                 post.setProperty("imagen",image.toString());
                 post.setProperty("texto",URLEncoder.encode(desc, "UTF-8"));
                 post.setProperty("titulo",URLEncoder.encode(title, "UTF-8"));
+                DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+                datastore.put(post);
                 response.sendRedirect(getServletContext().getContextPath() + "/index");
                 break;
         }

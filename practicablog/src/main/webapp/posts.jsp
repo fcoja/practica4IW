@@ -32,7 +32,7 @@
                 for (Entity p : posts) {
             %>
             <tr>
-                <td><h2><a href="<%= getServletContext().getContextPath()%>/SeePost?id=<%= p.getProperty("id")%>">
+                <td><h2><a href="<%= getServletContext().getContextPath()%>/SeePost?id=<%= p.getKey().getId()%>">
                             <%= URLDecoder.decode(p.getProperty("titulo").toString(), "UTF-8") %></a></h2></td>
                 <td><img src="<%= p.getProperty("imagen").toString() != null ? p.getProperty("imagen").toString().split(";")[0] : "#"%>"/></td>
                 <td><%= p.getProperty("texto").toString().length() >= 150 ? URLDecoder.decode(p.getProperty("texto").toString(), "UTF-8")
