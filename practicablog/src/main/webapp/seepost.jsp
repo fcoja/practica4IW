@@ -102,7 +102,7 @@
             %>
             <div>
                 <b><%= URLDecoder.decode(c.getProperty("autor").toString(), "UTF-8")%>:</b><br/>
-                <small><%= c.getProperty("fecha").toString()%></small><br/>
+                <small><%= URLDecoder.decode(c.getProperty("fecha").toString(), "UTF-8")%></small><br/>
                 <%= URLDecoder.decode(c.getProperty("texto").toString(), "UTF-8")%>
             </div>
             <%

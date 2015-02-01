@@ -57,6 +57,7 @@ public class AddCommentServlet extends HttpServlet {
             if (comments == null) comments = new ArrayList<>();
             comments.add(c);
             e.setProperty("comments", comments);
+			ds.put(e);
             PrintWriter pw = response.getWriter();
             pw.println("<div>");
             pw.println("<b>" + user + ":</b><br/>");
